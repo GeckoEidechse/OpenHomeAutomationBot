@@ -5,6 +5,9 @@ description = ""
 authors = ["GeckoEidechse <gecko.eidechse+git@pm.me>"]
 readme = "README.md"
 
+[tool.poetry.scripts]
+openhomeautomationbot = "openhomeautomationbot.main:main"
+
 [tool.poetry.dependencies]
 python = "^3.10"
 
