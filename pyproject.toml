@@ -3,6 +3,7 @@ name = "OpenHomeAutomationBot"
 version = "0.1.0"
 description = ""
 authors = ["GeckoEidechse <gecko.eidechse+git@pm.me>"]
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
