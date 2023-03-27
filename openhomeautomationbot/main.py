@@ -1,9 +1,13 @@
 from . import __version__
+import logging
 
 
 def main():
-    print("Hello, World!")
-    print(f"My package version is {__version__}")
+    # Set log level
+    logging.basicConfig(level=logging.INFO)
+
+    logging.info("Hello, World!")
+    logging.info(f"My package version is {__version__}")
 
 
 if __name__ == "__main__":
