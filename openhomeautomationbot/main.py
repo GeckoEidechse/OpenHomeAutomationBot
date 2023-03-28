@@ -5,6 +5,14 @@ import praw
 
 
 def check_for_keywords(text: str) -> bool:
+    """
+    Check if the given text contains any of the predefined keywords.
+
+    :param text: The text to check.
+    :type text: str
+    :return: True if the text contains any of the keywords, False otherwise.
+    :rtype: bool
+    """
     # TODO regex and list in extra file
     keywords = [
         "open source",
@@ -21,6 +29,14 @@ def check_for_keywords(text: str) -> bool:
 
 
 def check_if_fit_criteria(submission) -> bool:
+    """
+    Check if the given submission fits the criteria for cross-posting.
+
+    :param submission: The submission to check.
+    :type submission: praw.models.Submission
+    :return: True if the submission fits the criteria, False otherwise.
+    :rtype: bool
+    """
     # Get the contents of the title
     title = submission.title
 
@@ -43,6 +59,16 @@ def check_if_fit_criteria(submission) -> bool:
 def scrape_subreddit(
     reddit, subreddit_name="homeautomation"
 ) -> List[praw.models.Submission]:
+    """
+    Scrape the given subreddit for relevant posts.
+
+    :param reddit: The Reddit instance to use for the API requests.
+    :type reddit: praw.Reddit
+    :param subreddit_name: The name of the subreddit to scrape, defaults to "homeautomation".
+    :type subreddit_name: str, optional
+    :return: A list of relevant submissions.
+    :rtype: List[praw.models.Submission]
+    """
     subreddit = reddit.subreddit(subreddit_name)
 
     # Get last x posts
@@ -61,6 +87,16 @@ def crosspost_single_post(
     submission: praw.models.Submission,
     subreddit_name="o_homeautomation_test",
 ):
+    """
+    Cross-post a single submission to the given subreddit.
+
+    :param reddit: The Reddit instance to use for the API requests.
+    :type reddit: praw.Reddit
+    :param submission: The submission to cross-post.
+    :type submission: praw.models.Submission
+    :param subreddit_name: The name of the subreddit to cross-post to, defaults to "o_homeautomation_test".
+    :type subreddit_name: str, optional
+    """
     target_subreddit = reddit.subreddit(subreddit_name)
     crosspost_title = submission.title
 
@@ -72,6 +108,16 @@ def crosspost_single_post(
 
 
 def crosspost_posts(reddit: praw.Reddit, submissions: List[praw.models.Submission]):
+    """
+    Crossposts a list of submissions to a target subreddit using the provided Reddit instance.
+    
+    Args:
+        reddit (praw.Reddit): An instance of the Reddit class that is authenticated to the bot's account.
+        submissions (List[praw.models.Submission]): A list of Submission objects to crosspost.
+        
+    Returns:
+        None
+    """
     for submission in submissions:
         # TODO double check if already posted
         crosspost_single_post(reddit, submission)
@@ -79,6 +125,15 @@ def crosspost_posts(reddit: praw.Reddit, submissions: List[praw.models.Submissio
 
 
 def main():
+    """
+    The main function of the openhomeautomationbot package.
+    
+    Authenticates to the bot's Reddit account, scrapes a subreddit for relevant posts,
+    and crossposts them to a target subreddit.
+    
+    Returns:
+        None
+    """
     # Set log level
     logging.basicConfig(level=logging.INFO)
 
