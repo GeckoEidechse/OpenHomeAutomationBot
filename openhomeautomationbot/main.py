@@ -3,6 +3,7 @@ from typing import List
 import logging
 import praw
 
+
 def check_for_keywords(text: str) -> bool:
     # TODO regex and list in extra file
     keywords = [
@@ -20,7 +21,6 @@ def check_for_keywords(text: str) -> bool:
 
 
 def check_if_fit_criteria(submission) -> bool:
-
     # Get the contents of the title
     title = submission.title
 
@@ -39,28 +39,44 @@ def check_if_fit_criteria(submission) -> bool:
         logging.warn("Content posts not yet supported")
     False
 
-def scrape_subreddit(reddit, subreddit_name="homeautomation")-> List[praw.models.Submission]:
+
+def scrape_subreddit(
+    reddit, subreddit_name="homeautomation"
+) -> List[praw.models.Submission]:
     subreddit = reddit.subreddit(subreddit_name)
 
     # Get last x posts
     # TODO this should be based on timestamp since last visit instead
-    results = [submission for submission in subreddit.new(limit=20) if check_if_fit_criteria(submission)]
+    results = [
+        submission
+        for submission in subreddit.new(limit=20)
+        if check_if_fit_criteria(submission)
+    ]
 
     return results
 
-def crosspost_single_post(reddit: praw.Reddit, submission: praw.models.Submission, subreddit_name="o_homeautomation_test"):
+
+def crosspost_single_post(
+    reddit: praw.Reddit,
+    submission: praw.models.Submission,
+    subreddit_name="o_homeautomation_test",
+):
     target_subreddit = reddit.subreddit(subreddit_name)
     crosspost_title = submission.title
 
-    crosspost = submission.crosspost(subreddit=target_subreddit, title=crosspost_title, send_replies=True)
+    crosspost = submission.crosspost(
+        subreddit=target_subreddit, title=crosspost_title, send_replies=True
+    )
 
     logging.info(f"Crossposted to {crosspost.subreddit}: {crosspost.url}")
+
 
 def crosspost_posts(reddit: praw.Reddit, submissions: List[praw.models.Submission]):
     for submission in submissions:
         # TODO double check if already posted
         crosspost_single_post(reddit, submission)
-        break # TODO only post single post for now
+        break  # TODO only post single post for now
+
 
 def main():
     # Set log level
@@ -77,6 +93,7 @@ def main():
 
     # Cross-post relevant posts
     crosspost_posts(reddit, submissions)
+
 
 if __name__ == "__main__":
     main()
