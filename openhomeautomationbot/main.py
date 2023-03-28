@@ -110,11 +110,11 @@ def crosspost_single_post(
 def crosspost_posts(reddit: praw.Reddit, submissions: List[praw.models.Submission]):
     """
     Crossposts a list of submissions to a target subreddit using the provided Reddit instance.
-    
+
     Args:
         reddit (praw.Reddit): An instance of the Reddit class that is authenticated to the bot's account.
         submissions (List[praw.models.Submission]): A list of Submission objects to crosspost.
-        
+
     Returns:
         None
     """
@@ -127,10 +127,10 @@ def crosspost_posts(reddit: praw.Reddit, submissions: List[praw.models.Submissio
 def main():
     """
     The main function of the openhomeautomationbot package.
-    
+
     Authenticates to the bot's Reddit account, scrapes a subreddit for relevant posts,
     and crossposts them to a target subreddit.
-    
+
     Returns:
         None
     """
