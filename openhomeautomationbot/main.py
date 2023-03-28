@@ -53,7 +53,7 @@ def check_if_fit_criteria(submission) -> bool:
     else:
         content = submission.url
         logging.warn("Content posts not yet supported")
-    False
+    return False
 
 
 def scrape_subreddit(
