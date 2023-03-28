@@ -1,4 +1,4 @@
-from . import __version__
+from openhomeautomationbot import __version__
 from typing import List
 import logging
 import praw
