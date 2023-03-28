@@ -57,7 +57,7 @@ def check_if_fit_criteria(submission) -> bool:
 
 
 def scrape_subreddit(
-    reddit, subreddit_name="homeautomation"
+    reddit: praw.Reddit, subreddit_name: str = "homeautomation"
 ) -> List[praw.models.Submission]:
     """
     Scrape the given subreddit for relevant posts.
@@ -85,7 +85,7 @@ def scrape_subreddit(
 def crosspost_single_post(
     reddit: praw.Reddit,
     submission: praw.models.Submission,
-    subreddit_name="o_homeautomation_test",
+    subreddit_name: str = "o_homeautomation_test",
 ):
     """
     Cross-post a single submission to the given subreddit.
