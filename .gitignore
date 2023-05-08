@@ -3,3 +3,6 @@ __pycache__/
 
 # Ignore praw config file to avoid leaking credentials
 praw.ini
+
+# Ignore database file
+database.json
