@@ -12,9 +12,11 @@ openhomeautomationbot = "openhomeautomationbot.main:main"
 python = "^3.10"
 praw = "^7.7.0"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 pytest = "^5.2"
 black = "^23.1.0"
+ipython = "^8.13.2"
+ipykernel = "^6.22.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
