@@ -42,4 +42,3 @@ def crosspost_posts(reddit: praw.Reddit, submissions: List[praw.models.Submissio
     for submission in submissions:
         # TODO double check if already posted
         crosspost_single_post(reddit, submission)
-        break  # TODO only post single post for now
