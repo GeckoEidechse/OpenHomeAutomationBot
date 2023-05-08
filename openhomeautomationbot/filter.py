@@ -1,27 +1,25 @@
 import logging
 from newspaper import Article, ArticleException
+import re
 
 def check_for_keywords(text: str) -> bool:
     """
-    Check if the given text contains any of the predefined keywords.
+    Check if the given text contains any of the predefined keywords or patterns.
 
     :param text: The text to check.
     :type text: str
-    :return: True if the text contains any of the keywords, False otherwise.
+    :return: True if the text contains any of the keywords or patterns, False otherwise.
     :rtype: bool
     """
-    # TODO regex and list in extra file
-    keywords = [
-        "open source",
-        "open-source",
-        "foss",
-        "floss",
-        "home assistant",
-        "home-assistant",
-        "homeassistant",
+    patterns = [
+        r"\bopen[ -]?source\b",
+        r"\bfoss\b",
+        r"\bfloss\b",
+        r"\bhome[ -]?assistant\b",
     ]
-    # Check if text contains key words
-    return any(keyword in text.lower() for keyword in keywords)
+    # Check if text contains key patterns
+    text = text.lower()
+    return any(re.search(pattern, text) for pattern in patterns)
 
 
 def check_if_fit_criteria(submission, latest_timestamp: float) -> bool:
