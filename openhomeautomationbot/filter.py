@@ -13,7 +13,6 @@ def check_for_keywords(text: str) -> bool:
     keywords = [
         "open source",
         "open-source",
-        "open",
         "foss",
         "floss",
         "home assistant",
