@@ -1,7 +1,7 @@
 import os
 import json
 
-from openhomeautomationbot.database_management import read_database
+from openhomeautomationbot.database_management import read_database, update_database
 from openhomeautomationbot import __version__
 from typing import List
 import logging
@@ -136,45 +136,6 @@ def crosspost_posts(reddit: praw.Reddit, submissions: List[praw.models.Submissio
         # TODO double check if already posted
         crosspost_single_post(reddit, submission)
         break  # TODO only post single post for now
-
-def update_database(submissions: List[praw.models.Submission]):
-    """
-    Stores the list of newly posted posts in a database (just a JSON file)
-
-    Args:
-        submissions (List[praw.models.Submission]): A list of Submission objects to crosspost.
-
-    Returns:
-        None
-    """
-    database_file = "database.json"
-
-    # Load existing data from the database file
-    if os.path.exists(database_file):
-        with open(database_file, "r") as f:
-            data = json.load(f)
-    else:
-        data = {"posts": {}, "latest_timestamp": 0}
-
-    # Add new submissions to the data
-    for submission in submissions:
-        entry = {
-            "title": submission.title,
-            "url": submission.url,
-            "created_utc": submission.created_utc,
-        }
-        data["posts"][submission.id] = entry
-
-        # Update the latest timestamp if the current submission has a newer timestamp
-        if submission.created_utc > data["latest_timestamp"]:
-            data["latest_timestamp"] = submission.created_utc
-
-        # Add version field
-        data["version"] = 1
-
-    # Write updated data back to the database file
-    with open(database_file, "w") as f:
-        json.dump(data, f, indent=4)
 
 def main():
     """
