@@ -1,4 +1,5 @@
 import logging
+from newspaper import Article, ArticleException
 
 def check_for_keywords(text: str) -> bool:
     """
@@ -52,6 +53,20 @@ def check_if_fit_criteria(submission, latest_timestamp: float) -> bool:
             return True
 
     else:
-        content = submission.url
-        logging.warn("Content posts not yet supported")
+        # Link post
+        content_url = submission.url
+        # Attempt parsing link content
+        try:
+            article = Article(content_url)
+            article.download()
+            article.parse()
+            content = article.text
+
+            if check_for_keywords(content):
+                return True
+
+        except ArticleException as e:
+            logging.warn("Failed to extract content from the link: %s" % content_url)
+            logging.exception(e)
+
     return False
