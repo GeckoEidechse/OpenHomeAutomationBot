@@ -13,6 +13,7 @@ def check_for_keywords(text: str) -> bool:
     """
     patterns = [
         r"\bopen[ -]?source\b",
+        r"\bopen[ -]?hardware\b",
         r"\bfoss\b",
         r"\bfloss\b",
         r"\bhome[ -]?assistant\b",
