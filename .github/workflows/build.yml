@@ -30,4 +30,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/GeckoEidechse/openhomeautomationbot:${{ github.sha }}
+          tags: ${{ steps.img.outputs.name }}:${{ github.sha }}
