@@ -31,3 +31,16 @@ jobs:
           context: .
           push: true
           tags: ${{ steps.img.outputs.name }}:${{ github.sha }}
+
+      # Additionally create an image tagged as latest if we are on `main`
+      # This should just re-use the existing image and not be a full build
+      # but figuring out how to do that took too much time :P
+      - name: Build and push Docker image
+        id: docker_build_latest
+        if: startsWith(github.ref, 'refs/heads/main')
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ steps.img.outputs.name }}:latest
