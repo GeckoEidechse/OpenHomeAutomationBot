@@ -5,6 +5,8 @@ while true; do
     # Run your command here
     poetry run openhomeautomationbot
 
+    echo "Sleeping..."
     # Wait for 30 minutes
     sleep 1800
+    echo "Sleep done"
 done
